@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <app-header />>
     <img src="./assets/logo.png" />
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
@@ -28,8 +29,13 @@
 </template>
 
 <script>
+import AppHeader from "./components/AppHeader";
+
 export default {
   name: "app",
+  components: {
+    AppHeader
+  },
   data() {
     return {
       msg: "Welcome to Your Vue.js App"
