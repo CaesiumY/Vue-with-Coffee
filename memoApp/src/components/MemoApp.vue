@@ -2,7 +2,12 @@
   <div class="memo-app">
     <memo-form @addMemo="addMemo" />
     <ul class="memo-list">
-      <memo v-for="memo in memos" :key="memo.id" :memo="memo" />
+      <memo
+        v-for="memo in memos"
+        :key="memo.id"
+        :memo="memo"
+        @deleteMemo="deleteMemo"
+      />
     </ul>
   </div>
 </template>
@@ -32,6 +37,11 @@ export default {
     },
     addMemo(payload) {
       this.memos.push(payload);
+      this.storeMemo();
+    },
+    deleteMemo(id) {
+      const index = this.memos.findIndex(item => item.id === id);
+      this.memos.splice(index, 1);
       this.storeMemo();
     }
   }
