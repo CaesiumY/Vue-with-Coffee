@@ -1,7 +1,9 @@
 <template>
   <div class="memo-app">
     <memo-form @addMemo="addMemo" />
-    <memo />
+    <ul class="memo-list">
+      <memo v-for="memo in memos" :key="memo.id" :memo="memo" />
+    </ul>
   </div>
 </template>
 
@@ -12,7 +14,8 @@ import MemoForm from "./MemoForm";
 export default {
   name: "MemoApp",
   components: {
-    MemoForm
+    MemoForm,
+    Memo
   },
   data() {
     return {
@@ -35,4 +38,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.memo-list {
+  padding: 20px 0;
+  margin: 0;
+}
+</style>
