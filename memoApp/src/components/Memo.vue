@@ -3,7 +3,14 @@
     <strong>{{ memo.title }}</strong>
     <p @dblclick="handleDbClick">
       <template v-if="!isEditing">{{ memo.content }}</template>
-      <input v-else type="text" ref="content" :value="memo.content" />
+      <input
+        v-else
+        type="text"
+        ref="content"
+        :value="memo.content"
+        @keydown.enter="updateMemo"
+        v-click-outside="updateMemo"
+      />
     </p>
     <button type="button" @click="deleteMemo">
       <i class="fas fa-times"></i>
@@ -12,6 +19,8 @@
 </template>
 
 <script>
+import ClickOutside from "vue-click-outside";
+
 export default {
   name: "Memo",
   data() {
@@ -25,6 +34,9 @@ export default {
     }
   },
   methods: {
+    consoleTest() {
+      console.log("clicked");
+    },
     deleteMemo() {
       const id = this.memo.id;
       this.$emit("deleteMemo", id);
@@ -34,7 +46,21 @@ export default {
       this.$nextTick(() => {
         this.$refs.content.focus();
       });
+    },
+    updateMemo(e) {
+      const id = this.memo.id;
+      const content = this.$refs.content.value.trim();
+
+      if (content.length <= 0) {
+        return false;
+      }
+
+      this.$emit("updateMemo", { id, content });
+      this.isEditing = false;
     }
+  },
+  directives: {
+    ClickOutside
   }
 };
 </script>
