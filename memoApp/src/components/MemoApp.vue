@@ -7,6 +7,7 @@
         :key="memo.id"
         :memo="memo"
         @deleteMemo="deleteMemo"
+        @updateMemo="updateMemo"
       />
     </ul>
   </div>
@@ -42,6 +43,13 @@ export default {
     deleteMemo(id) {
       const index = this.memos.findIndex(item => item.id === id);
       this.memos.splice(index, 1);
+      this.storeMemo();
+    },
+    updateMemo(payload) {
+      const { id, content } = payload;
+      const index = this.memos.findIndex(item => item.id === id);
+      const targetMemo = this.memos[index];
+      this.memos.splice(index, 1, { ...targetMemo, content });
       this.storeMemo();
     }
   }

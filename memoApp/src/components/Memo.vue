@@ -1,7 +1,10 @@
 <template>
   <li class="memo-item">
     <strong>{{ memo.title }}</strong>
-    <p>{{ memo.content }}</p>
+    <p @dblclick="handleDbClick">
+      <template v-if="!isEditing">{{ memo.content }}</template>
+      <input v-else type="text" ref="content" :value="memo.content" />
+    </p>
     <button type="button" @click="deleteMemo">
       <i class="fas fa-times"></i>
     </button>
@@ -11,6 +14,11 @@
 <script>
 export default {
   name: "Memo",
+  data() {
+    return {
+      isEditing: false
+    };
+  },
   props: {
     memo: {
       type: Object
@@ -20,6 +28,12 @@ export default {
     deleteMemo() {
       const id = this.memo.id;
       this.$emit("deleteMemo", id);
+    },
+    handleDbClick() {
+      this.isEditing = true;
+      this.$nextTick(() => {
+        this.$refs.content.focus();
+      });
     }
   }
 };
@@ -64,5 +78,12 @@ export default {
   font-size: 14px;
   line-height: 14px;
   color: #666;
+}
+
+.memo-item p input[type="text"] {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: inherit;
+  border: 1px solid #999;
 }
 </style>
