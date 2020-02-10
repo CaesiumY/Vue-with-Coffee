@@ -9,7 +9,7 @@
         ref="content"
         :value="memo.content"
         @keydown.enter="updateMemo"
-        v-click-outside="updateMemo"
+        @blur="updateMemo"
       />
     </p>
     <button type="button" @click="deleteMemo">
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import ClickOutside from "vue-click-outside";
-
 export default {
   name: "Memo",
   data() {
@@ -58,9 +56,6 @@ export default {
       this.$emit("updateMemo", { id, content });
       this.isEditing = false;
     }
-  },
-  directives: {
-    ClickOutside
   }
 };
 </script>
