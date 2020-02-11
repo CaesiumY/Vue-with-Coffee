@@ -51,15 +51,19 @@ export default {
     },
     deleteMemo(id) {
       const index = this.memos.findIndex(item => item.id === id);
-      this.memos.splice(index, 1);
-      this.storeMemo();
+      // this.memos.splice(index, 1);
+      // this.storeMemo();
+      memoApiCore.delete(`/${id}`).then(() => this.memos.splice(index, 1));
     },
     updateMemo(payload) {
       const { id, content } = payload;
       const index = this.memos.findIndex(item => item.id === id);
       const targetMemo = this.memos[index];
-      this.memos.splice(index, 1, { ...targetMemo, content });
-      this.storeMemo();
+      // this.memos.splice(index, 1, { ...targetMemo, content });
+      // this.storeMemo();
+      memoApiCore.put(`/${id}`, { content }).then(() => {
+        this.memos.splice(index, 1, { ...targetMemo, content });
+      });
     }
   }
 };
