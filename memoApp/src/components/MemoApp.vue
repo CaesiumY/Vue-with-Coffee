@@ -38,10 +38,10 @@ export default {
     memoApiCore.get("/").then(response => (this.memos = response.data));
   },
   methods: {
-    storeMemo() {
-      const memosToString = JSON.stringify(this.memos);
-      localStorage.setItem("memos", memosToString);
-    },
+    // storeMemo() {
+    //   const memosToString = JSON.stringify(this.memos);
+    //   localStorage.setItem("memos", memosToString);
+    // },
     addMemo(payload) {
       // this.memos.push(payload);
       // this.storeMemo();
