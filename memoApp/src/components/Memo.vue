@@ -13,7 +13,7 @@
       />
     </p>
     <button type="button" @click="deleteMemo">
-      <i class="fas fa-times"></i>
+      <i class="fas fa-times"></i>X
     </button>
   </li>
 </template>

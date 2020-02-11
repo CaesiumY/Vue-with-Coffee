@@ -17,6 +17,7 @@
 import Memo from "./Memo";
 import MemoForm from "./MemoForm";
 import axios from "axios";
+import { mapActions, mapState } from "vuex";
 
 const memoApiCore = axios.create({
   baseURL: "http://localhost:8000/api/memos"
@@ -28,43 +29,49 @@ export default {
     MemoForm,
     Memo
   },
-  data() {
-    return {
-      memos: []
-    };
-  },
+  // data() {
+  //   return {
+  //     memos: []
+  //   };
+  // },
   created() {
     // this.memos = localStorage.memos ? JSON.parse(localStorage.memos) : [];
-    memoApiCore.get("/").then(response => (this.memos = response.data));
+    // memoApiCore.get("/").then(response => (this.memos = response.data));
+    this.fetchMemos();
   },
   methods: {
-    // storeMemo() {
-    //   const memosToString = JSON.stringify(this.memos);
-    //   localStorage.setItem("memos", memosToString);
+    // // storeMemo() {
+    // //   const memosToString = JSON.stringify(this.memos);
+    // //   localStorage.setItem("memos", memosToString);
+    // // },
+    // addMemo(payload) {
+    //   // this.memos.push(payload);
+    //   // this.storeMemo();
+    //   memoApiCore.post("/", payload).then(response => {
+    //     this.memos.push(response.data);
+    //   });
     // },
-    addMemo(payload) {
-      // this.memos.push(payload);
-      // this.storeMemo();
-      memoApiCore.post("/", payload).then(response => {
-        this.memos.push(response.data);
-      });
-    },
-    deleteMemo(id) {
-      const index = this.memos.findIndex(item => item.id === id);
-      // this.memos.splice(index, 1);
-      // this.storeMemo();
-      memoApiCore.delete(`/${id}`).then(() => this.memos.splice(index, 1));
-    },
-    updateMemo(payload) {
-      const { id, content } = payload;
-      const index = this.memos.findIndex(item => item.id === id);
-      const targetMemo = this.memos[index];
-      // this.memos.splice(index, 1, { ...targetMemo, content });
-      // this.storeMemo();
-      memoApiCore.put(`/${id}`, { content }).then(() => {
-        this.memos.splice(index, 1, { ...targetMemo, content });
-      });
-    }
+    // deleteMemo(id) {
+    //   const index = this.memos.findIndex(item => item.id === id);
+    //   // this.memos.splice(index, 1);
+    //   // this.storeMemo();
+    //   memoApiCore.delete(`/${id}`).then(() => this.memos.splice(index, 1));
+    // },
+    // updateMemo(payload) {
+    //   const { id, content } = payload;
+    //   const index = this.memos.findIndex(item => item.id === id);
+    //   const targetMemo = this.memos[index];
+    //   // this.memos.splice(index, 1, { ...targetMemo, content });
+    //   // this.storeMemo();
+    //   memoApiCore.put(`/${id}`, { content }).then(() => {
+    //     this.memos.splice(index, 1, { ...targetMemo, content });
+    //   });
+    // }
+
+    ...mapActions(["fetchMemos", "addMemo", "deleteMemo"])
+  },
+  computed: {
+    ...mapState(["memos"])
   }
 };
 </script>
