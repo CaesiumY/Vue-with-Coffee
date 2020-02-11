@@ -9,12 +9,10 @@
             placeholder="메모의 제목을 입력해주세요."
             v-model="title"
           />
-          <textarea
-            class="memo-form__content-form"
-            placeholder="메모의 내용을 입력해주세요."
-            v-model="content"
-          ></textarea>
-          <button type="reset"><i class="fas fa-sync-alt"></i></button>
+          <textarea class="memo-form__content-form" placeholder="메모의 내용을 입력해주세요." v-model="content"></textarea>
+          <button type="reset">
+            <i class="fas fa-sync-alt"></i>
+          </button>
         </div>
         <button type="submit">등록하기</button>
       </fieldset>
@@ -38,13 +36,13 @@ export default {
     },
     addMemo() {
       const { title, content } = this;
-      const id = new Date().getTime();
+      // const id = new Date().getTime();
       const isEmpty = title.length <= 0 || content.length <= 0;
 
       if (isEmpty) {
         return false;
       } else {
-        this.$emit("addMemo", { id, title, content });
+        this.$emit("addMemo", { title, content });
         this.resetFields();
       }
     }
