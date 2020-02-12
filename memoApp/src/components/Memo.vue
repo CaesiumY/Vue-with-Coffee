@@ -9,7 +9,7 @@
         ref="content"
         :value="memo.content"
         @keydown.enter="updateMemo"
-        @blur="updateMemo"
+        @blur="handleBlur"
       />
     </p>
     <button type="button" @click="deleteMemo">
