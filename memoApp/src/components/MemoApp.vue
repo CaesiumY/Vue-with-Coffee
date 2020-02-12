@@ -21,7 +21,7 @@ import Memo from "./Memo";
 import MemoForm from "./MemoForm";
 import axios from "axios";
 import { mapActions, mapState, mapMutations } from "vuex";
-import { SET_EDTING_ID, RESET_EDTING_ID } from "../store/mutations-types";
+import { SET_EDTING_ID, RESET_EDITING_ID } from "../store/mutations-types";
 
 const memoApiCore = axios.create({
   baseURL: "http://localhost:8000/api/memos"

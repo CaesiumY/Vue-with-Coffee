@@ -4,7 +4,7 @@ import {
   DELETE_MEMO,
   UPDATE_MEMO,
   SET_EDTING_ID,
-  RESET_EDTING_ID
+  RESET_EDITING_ID
 } from "./mutations-types";
 
 export default {
@@ -28,7 +28,7 @@ export default {
   [SET_EDTING_ID](state, id) {
     state.editingId = id;
   },
-  [RESET_EDTING_ID](state) {
+  [RESET_EDITING_ID](state) {
     state.editingId = 0;
   }
 };

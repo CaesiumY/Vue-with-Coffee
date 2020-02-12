@@ -30,7 +30,7 @@ export default {
     memo: {
       type: Object
     },
-    editngId: {
+    editingId: {
       type: Number,
       default: 0
     }
@@ -38,9 +38,9 @@ export default {
   computed: {
     isEditing() {
       console.log("memo id:", this.memo.id);
-      console.log("edit id:", this.editngId);
-      console.log("isEdit:", this.memo.id === this.editngId);
-      return this.memo.id === this.editngId;
+      console.log("edit id:", this.editingId);
+      console.log("isEdit:", this.memo.id === this.editingId);
+      return this.memo.id === this.editingId;
     }
   },
   methods: {
@@ -55,7 +55,7 @@ export default {
       // this.isEditing = true;
       this.$emit("setEditingId", this.memo.id);
       this.$nextTick(() => {
-        // this.$refs.content.focus();
+        this.$refs.content.focus();
       });
     },
     handleBlur() {
