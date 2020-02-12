@@ -6,8 +6,11 @@
         v-for="memo in memos"
         :key="memo.id"
         :memo="memo"
+        :editingId="editingId"
         @deleteMemo="deleteMemo"
         @updateMemo="updateMemo"
+        @setEditingId="SET_EDITING_ID"
+        @resetEditingId="RESET_EDITING_ID"
       />
     </ul>
   </div>
@@ -17,7 +20,8 @@
 import Memo from "./Memo";
 import MemoForm from "./MemoForm";
 import axios from "axios";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
+import { SET_EDTING_ID, RESET_EDTING_ID } from "../store/mutations-types";
 
 const memoApiCore = axios.create({
   baseURL: "http://localhost:8000/api/memos"
@@ -68,10 +72,11 @@ export default {
     //   });
     // }
 
-    ...mapActions(["fetchMemos", "addMemo", "deleteMemo", "updateMemo"])
+    ...mapActions(["fetchMemos", "addMemo", "deleteMemo", "updateMemo"]),
+    ...mapMutations(["SET_EDITING_ID", "RESET_EDITING_ID"])
   },
   computed: {
-    ...mapState(["memos"])
+    ...mapState(["memos", "editingId"])
   }
 };
 </script>

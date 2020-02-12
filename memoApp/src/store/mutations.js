@@ -2,7 +2,9 @@ import {
   FETCH_MEMOS,
   ADD_MEMO,
   DELETE_MEMO,
-  UPDATE_MEMO
+  UPDATE_MEMO,
+  SET_EDTING_ID,
+  RESET_EDTING_ID
 } from "./mutations-types";
 
 export default {
@@ -22,5 +24,11 @@ export default {
     const targetMemo = state.memos[targetIndex];
 
     state.memos.splice(targetIndex, 1, { ...targetMemo, content });
+  },
+  [SET_EDTING_ID](state, id) {
+    state.editingId = id;
+  },
+  [RESET_EDTING_ID](state) {
+    state.editingId = 0;
   }
 };

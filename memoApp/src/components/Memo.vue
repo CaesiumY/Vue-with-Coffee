@@ -21,14 +21,26 @@
 <script>
 export default {
   name: "Memo",
-  data() {
-    return {
-      isEditing: false
-    };
-  },
+  // data() {
+  //   return {
+  //     isEditing: false
+  //   };
+  // },
   props: {
     memo: {
       type: Object
+    },
+    editngId: {
+      type: Number,
+      default: 0
+    }
+  },
+  computed: {
+    isEditing() {
+      console.log("memo id:", this.memo.id);
+      console.log("edit id:", this.editngId);
+      console.log("isEdit:", this.memo.id === this.editngId);
+      return this.memo.id === this.editngId;
     }
   },
   methods: {
@@ -40,10 +52,14 @@ export default {
       this.$emit("deleteMemo", id);
     },
     handleDbClick() {
-      this.isEditing = true;
+      // this.isEditing = true;
+      this.$emit("setEditingId", this.memo.id);
       this.$nextTick(() => {
-        this.$refs.content.focus();
+        // this.$refs.content.focus();
       });
+    },
+    handleBlur() {
+      this.$emit("resetEditingId");
     },
     updateMemo(e) {
       const id = this.memo.id;
@@ -54,7 +70,8 @@ export default {
       }
 
       this.$emit("updateMemo", { id, content });
-      this.isEditing = false;
+      // this.isEditing = false;
+      this.$refs.content.blur();
     }
   }
 };
