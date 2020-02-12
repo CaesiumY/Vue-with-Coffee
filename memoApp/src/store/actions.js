@@ -13,18 +13,22 @@ const memoAPICore = axios.create({
 export function fetchMemos({ commit }) {
   memoAPICore
     .get("/")
-    .then(response => commit(FETCH_MEMOS, response.data))
+    .then(response => {
+      commit(FETCH_MEMOS, response.data);
+    })
     .catch(e => alert(e));
 }
 
 export function addMemo({ commit }, payload) {
-  memoAPICore
-    .post("/", payload)
-    .then(response => commit(ADD_MEMO, response.data));
+  memoAPICore.post("/", payload).then(response => {
+    commit(ADD_MEMO, response.data);
+  });
 }
 
 export function deleteMemo({ commit }, id) {
-  memoAPICore.delete(`/${id}`).then(() => commit(DELETE_MEMO, id));
+  memoAPICore.delete(`/${id}`).then(() => {
+    commit(DELETE_MEMO, id);
+  });
 }
 
 export function updateMemo({ commit }, payload) {
