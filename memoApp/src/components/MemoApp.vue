@@ -68,7 +68,7 @@ export default {
     //   });
     // }
 
-    ...mapActions(["fetchMemos", "addMemo", "deleteMemo"])
+    ...mapActions(["fetchMemos", "addMemo", "deleteMemo", "updateMemo"])
   },
   computed: {
     ...mapState(["memos"])
