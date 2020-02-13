@@ -16,12 +16,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- <tr>
-          <td scope="col">1</td>
-          <td scope="col">게시글의 제목이 노출됩니다.</td>
-          <td scope="col">홍길동</td>
-          <td scope="col">2018-01-01 09:00</td>
-        </tr>-->
         <tr v-for="post in posts" :key="post.id">
           <td scope="col">{{post.id}}</td>
           <td scope="col">
