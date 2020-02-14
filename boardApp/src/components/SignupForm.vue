@@ -24,14 +24,15 @@ export default {
   methods: {
     submit() {
       const { name, email, password, passwordConfirm } = this;
-      if (!name || !email || !password || passwordConfirm) {
+      if (!name || !email || !password || !passwordConfirm) {
         alert("모든 항목을 입력해주세요.");
+        return;
       }
       if (password !== passwordConfirm) {
         alert("비밀번호가 일치하지 않습니다.");
         return;
       }
-      this.$emit(submit, { name, email, password });
+      this.$emit("submit", { name, email, password });
     }
   }
 };
