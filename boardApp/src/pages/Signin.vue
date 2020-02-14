@@ -12,6 +12,7 @@
 <script>
 import SigninForm from "../components/SigninForm";
 import api from "../api";
+import { mapActions } from "vuex";
 
 export default {
   name: "Signin",
@@ -20,17 +21,16 @@ export default {
   },
   methods: {
     onSubmit(payload) {
-      const { email, password } = payload;
-      api
-        .post("/auth/signin", { email, password })
+      this.signin(payload)
         .then(response => {
-          const { accessToken } = response.data;
-          api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
           alert("로그인이 완료되었습니다.");
           this.$router.push({ name: "PostListPage" });
         })
-        .catch(error => alert(error.response.data.msg));
-    }
+        .catch(error => {
+          alert(error.response.data.msg);
+        });
+    },
+    ...mapActions(["signin"])
   }
 };
 </script>
