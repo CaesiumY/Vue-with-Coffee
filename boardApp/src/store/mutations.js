@@ -3,6 +3,7 @@ import {
   FETCH_POST,
   SET_ACCESS_TOKEN
 } from "./mutations-type";
+import api from "../api";
 
 export default {
   [FETCH_POST_LIST](state, posts) {
