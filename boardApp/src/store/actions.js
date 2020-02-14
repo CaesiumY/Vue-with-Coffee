@@ -18,7 +18,7 @@ export default {
   },
   signin({ commit }, payload) {
     const { email, password } = payload;
-    api.post("/auth/signin", { email, password }).then(response => {
+    return api.post("/auth/signin", { email, password }).then(response => {
       console.log("res data:", response.data);
       const { accessToken } = response.data;
       commit(SET_ACCESS_TOKEN, accessToken);
