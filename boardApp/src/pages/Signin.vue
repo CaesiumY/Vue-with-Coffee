@@ -11,6 +11,8 @@
 
 <script>
 import SigninForm from "../components/SigninForm";
+import api from "../api";
+
 export default {
   name: "Signin",
   components: {
@@ -18,7 +20,10 @@ export default {
   },
   methods: {
     onSubmit(payload) {
-      console.log(payload);
+      const { email, password } = payload;
+      api.post("/auth/signin", { email, password }).then(response => {
+        console.log(response.data);
+      });
     }
   }
 };
