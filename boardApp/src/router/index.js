@@ -5,6 +5,8 @@ import PostViewPage from "@/pages/PostViewPage";
 import Signup from "@/pages/Signup";
 import Signin from "@/pages/Signin";
 
+import AppHeader from "../components/AppHeader";
+
 Vue.use(Router);
 
 export default new Router({
@@ -13,23 +15,37 @@ export default new Router({
     {
       path: "/",
       name: "PostListPage",
-      component: PostListPage
+      components: {
+        default: PostListPage,
+        header: AppHeader
+      }
     },
     {
       path: "/post/:postId",
       name: "PostViewPage",
-      component: PostViewPage,
-      props: true
+      components: {
+        default: PostViewPage,
+        header: AppHeader
+      },
+      props: {
+        default: true
+      }
     },
     {
       path: "/signup",
       name: "Signup",
-      component: Signup
+      components: {
+        default: Signup,
+        header: AppHeader
+      }
     },
     {
       path: "/signin",
       name: "Signin",
-      component: Signin
+      components: {
+        default: Signin,
+        header: AppHeader
+      }
     }
   ]
 });
