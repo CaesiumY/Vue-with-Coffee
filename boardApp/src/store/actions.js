@@ -2,7 +2,8 @@ import api from "@/api";
 import {
   FETCH_POST_LIST,
   FETCH_POST,
-  SET_ACCESS_TOKEN
+  SET_ACCESS_TOKEN,
+  SET_MY_INFO
 } from "./mutations-type";
 
 export default {
@@ -18,10 +19,24 @@ export default {
   },
   signin({ commit }, payload) {
     const { email, password } = payload;
-    return api.post("/auth/signin", { email, password }).then(response => {
-      console.log("res data:", response.data);
-      const { accessToken } = response.data;
-      commit(SET_ACCESS_TOKEN, accessToken);
+    return api
+      .post("/auth/signin", { email, password })
+      .then(response => {
+        // console.log("res data:", response.data);
+        const { accessToken } = response.data;
+        commit(SET_ACCESS_TOKEN, accessToken);
+
+        return api.get("/users/me");
+      })
+      .then(response => {
+        commit(SET_MY_INFO, response.data);
+      });
+  },
+  signinByToken({ commit }, token) {
+    commit(SET_ACCESS_TOKEN, token);
+
+    return api.get("/users/me").then(response => {
+      commit(SET_MY_INFO, response.data);
     });
   }
 };
