@@ -33,7 +33,7 @@ export default new Router({
         const { isAuthorized } = store.getters;
         if (!isAuthorized) {
           alert("로그인이 필요합니다!");
-          next({ name: Signin });
+          next({ name: "Signin" });
         }
         next();
       }
