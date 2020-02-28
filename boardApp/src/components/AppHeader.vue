@@ -1,6 +1,6 @@
 <template>
   <div class="app-header">
-    <h1>Community</h1>
+    <h1 @click="pushRouter">Community</h1>
     <div v-if="isAuthorized">
       <strong>
         <button class="header__btn" @click="toggle">
@@ -42,12 +42,19 @@ export default {
       this.signout();
       this.$router.push({ name: "PostListPage" });
     },
+    pushRouter() {
+      this.$router.push({ name: "PostListPage" }).catch(e => {});
+    },
     ...mapActions(["signout"])
   }
 };
 </script>
 
 <style scoped>
+.app-header h1 {
+  cursor: pointer;
+}
+
 .header__btn {
   background: transparent;
 }
