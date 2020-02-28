@@ -3,14 +3,16 @@
     <h1>Community</h1>
     <div v-if="isAuthorized">
       <strong>
-        <button @click="toggle">
+        <button class="header__btn" @click="toggle">
           {{ me.name }}님 환영합니다.
           <i v-if="isActive" class="fas fa-sort-down"></i>
           <i v-else class="fas fa-sort-up"></i>
         </button>
       </strong>
       <ul v-if="isActive">
-        <li><button @click="onClickSignout">로그아웃</button></li>
+        <li>
+          <button class="header__btn" @click="onClickSignout">로그아웃</button>
+        </li>
       </ul>
     </div>
     <div v-else>
@@ -45,4 +47,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.header__btn {
+  background: transparent;
+}
+</style>
