@@ -2,7 +2,10 @@
   <div class="post-view-page">
     <post-view v-if="post" :post="post" />
     <p v-else>게시글을 불러오는 중...</p>
-    <router-link :to="{name: 'PostListPage'}">목록</router-link>
+    <router-link :to="{ name: 'PostEditPage', params: { postId } }">
+      수정하기
+    </router-link>
+    <router-link :to="{ name: 'PostListPage' }">목록</router-link>
   </div>
 </template>
 
@@ -36,5 +39,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

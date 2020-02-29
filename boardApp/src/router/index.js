@@ -5,6 +5,7 @@ import PostViewPage from "@/pages/PostViewPage";
 import Signup from "@/pages/Signup";
 import Signin from "@/pages/Signin";
 import PostCreatePage from "@/pages/PostCreatePage";
+import PostEditPage from "@/pages/PostEditPage";
 
 import AppHeader from "../components/AppHeader";
 import store from "../store";
@@ -49,6 +50,18 @@ export default new Router({
         default: true
       }
     },
+    {
+      path: "/post/:postId/edit",
+      name: "PostEditPage",
+      components: {
+        default: PostEditPage,
+        header: AppHeader
+      },
+      props: {
+        default: true
+      }
+    },
+
     {
       path: "/signup",
       name: "Signup",
