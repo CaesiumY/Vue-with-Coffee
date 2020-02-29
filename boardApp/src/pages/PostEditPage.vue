@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "PostEditPage",
   props: {
@@ -12,6 +14,9 @@ export default {
       type: String,
       required: true
     }
+  },
+  computed: {
+    ...mapState(["post"])
   }
 };
 </script>
