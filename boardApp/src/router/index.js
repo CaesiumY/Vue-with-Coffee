@@ -68,6 +68,7 @@ export default new Router({
           next({ name: "Signin" });
           return false;
         }
+        // PostViewPage에서 넘어가는 것 외에, 주소로 넘어갔을 때도 동작하게 하려고 다시 데이터 GET
         store
           .dispatch("fetchPost", to.params.postId)
           .then(response => {
