@@ -5,6 +5,7 @@
     <router-link :to="{ name: 'PostEditPage', params: { postId } }">
       수정하기
     </router-link>
+    <button @click="onDelete">삭제</button>
     <router-link :to="{ name: 'PostListPage' }">목록</router-link>
   </div>
 </template>
@@ -12,6 +13,7 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import PostView from "../components/PostView";
+import api from "../api";
 
 export default {
   name: "PostViewPage",
@@ -34,6 +36,23 @@ export default {
     ...mapState(["post"])
   },
   methods: {
+    onDelete() {
+      const { id } = this.post;
+      api
+        .delete(`/posts/${id}`)
+        .then(response => {
+          alert("게시물이 성공적으로 삭제되었습니다.");
+          this.$router.push({ name: "PostListPage" });
+        })
+        .catch(error => {
+          if (error.response.status === 401) {
+            alert("로그인이 필요합니다.");
+            this.$router.push({ name: "Signin" });
+          } else {
+            alert(error.response.data.msg);
+          }
+        });
+    },
     ...mapActions(["fetchPost"])
   }
 };
