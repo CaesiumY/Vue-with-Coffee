@@ -3,7 +3,7 @@
     <h1 @click="pushRouter">Community</h1>
     <div v-if="isAuthorized">
       <strong>
-        <button class="header__btn" @click="toggle">
+        <button class="header__btn" @click="toggle" @blur="handleBlur">
           {{ me.name }}님 환영합니다.
           <i v-if="isActive" class="fas fa-sort-down"></i>
           <i v-else class="fas fa-sort-up"></i>
@@ -44,6 +44,9 @@ export default {
     },
     pushRouter() {
       this.$router.push({ name: "PostListPage" }).catch(e => {});
+    },
+    handleBlur() {
+      this.isActive = false;
     },
     ...mapActions(["signout"])
   }
