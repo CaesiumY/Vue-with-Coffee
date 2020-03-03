@@ -3,7 +3,7 @@
     <strong>{{ comment.user.name }}</strong>
     <span>{{ comment.createdAt }}</span>
     <p>{{ comment.contents }}</p>
-    <ul>
+    <ul v-if="isMyComment">
       <li><button type="button">수정</button></li>
       <li><button type="button">삭제</button></li>
     </ul>
@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
 export default {
   name: "CommentItem",
   props: {
@@ -23,6 +25,13 @@ export default {
         const isValidUser = !!comment.user;
         return isValidCommentId && isValidContents && isValidUser;
       }
+    }
+  },
+  computed: {
+    ...mapState(["me"]),
+    ...mapGetters(["isAuthorized"]),
+    isMyComment() {
+      return this.isAuthorized && this.me.id === this.comment.user.id;
     }
   }
 };
