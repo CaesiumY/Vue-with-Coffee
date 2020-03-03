@@ -63,7 +63,7 @@ export default {
     onCommentSubmit(comment) {
       if (!this.isAuthorized) {
         alert("인증이 필요합니다!");
-        this.$router.push({ name: Signin });
+        this.$router.push({ name: "Signin" });
       } else {
         this.createComment(comment)
           .then(() => {
