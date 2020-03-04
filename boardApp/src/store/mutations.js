@@ -43,12 +43,11 @@ export default {
     state.post.comments.push(payload);
   },
   [EDIT_COMMENT](state, payload) {
-    console.log(payload);
-    const { id: commentId, comment, updatedAt } = payload;
+    const { id: commentId, contents, updatedAt } = payload;
     const targetComment = state.post.comments.find(
       comment => comment.id === commentId
     );
-    targetComment.contents = comment;
+    targetComment.contents = contents;
     targetComment.updatedAt = updatedAt;
   }
 };
