@@ -2,9 +2,17 @@
   <div class="comment-item">
     <strong>{{ comment.user.name }}</strong>
     <span>{{ comment.createdAt }}</span>
-    <p>{{ comment.contents }}</p>
+    <div v-if="isEditing">
+      <textarea v-model="editMessage" rows="3"></textarea>
+      <button @click="onEdit">수정 완료</button>
+    </div>
+    <p v-else>{{ comment.contents }}</p>
     <ul v-if="isMyComment">
-      <li><button type="button">수정</button></li>
+      <li>
+        <button type="button" @click="toggleEditMode">
+          {{ editButtonText }}
+        </button>
+      </li>
       <li><button type="button">삭제</button></li>
     </ul>
   </div>
@@ -27,11 +35,40 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      isEditing: false,
+      editMessage: ""
+    };
+  },
   computed: {
     ...mapState(["me"]),
     ...mapGetters(["isAuthorized"]),
     isMyComment() {
       return this.isAuthorized && this.me.id === this.comment.user.id;
+    },
+    editButtonText() {
+      return this.isEditing ? "수정 취소" : "수정";
+    },
+    isValidComment() {
+      return this.editMessage.length > 0 && this.editMessage.length < 256;
+    }
+  },
+  methods: {
+    toggleEditMode() {
+      this.isEditing = !this.isEditing;
+      if (this.isEditing) {
+        this.editMessage = this.comment.contents;
+      }
+    },
+    onEdit() {
+      if (this.isValidComment) {
+        this.isEditing = false;
+        const { id } = this.comment;
+        this.$emit("edit", { id, comment: this.editMessage });
+      } else {
+        alert("댓글은 1자 이상, 255자 이하여야 합니다.");
+      }
     }
   }
 };
