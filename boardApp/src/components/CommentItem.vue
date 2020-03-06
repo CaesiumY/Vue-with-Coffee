@@ -13,7 +13,7 @@
           {{ editButtonText }}
         </button>
       </li>
-      <li><button type="button">삭제</button></li>
+      <li><button type="button" @click="onDelete">삭제</button></li>
     </ul>
   </div>
 </template>
@@ -69,6 +69,10 @@ export default {
       } else {
         alert("댓글은 1자 이상, 255자 이하여야 합니다.");
       }
+    },
+    onDelete() {
+      const { id } = this.comment;
+      this.$emit("delete", id);
     }
   }
 };

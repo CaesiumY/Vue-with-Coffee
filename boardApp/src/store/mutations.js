@@ -6,7 +6,8 @@ import {
   DESTROY_ACCESS_TOKEN,
   DESTROY_MY_INFO,
   UPDATE_COMMENT,
-  EDIT_COMMENT
+  EDIT_COMMENT,
+  DELETE_COMMENT
 } from "./mutations-type";
 import api from "../api";
 import Cookies from "js-cookie";
@@ -49,5 +50,11 @@ export default {
     );
     targetComment.contents = contents;
     targetComment.updatedAt = updatedAt;
+  },
+  [DELETE_COMMENT](state, commentId) {
+    const targetIndex = state.post.comments.findIndex(comment => {
+      comment.id === commentId;
+    });
+    state.post.comments.splice(targetIndex, 1);
   }
 };

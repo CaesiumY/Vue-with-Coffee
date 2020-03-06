@@ -1,7 +1,7 @@
 <template>
   <ul class="comments">
     <li v-for="comment in comments" :key="comment.id">
-      <comment-item @edit="onEdit" :comment="comment" />
+      <comment-item @edit="onEdit" @delete="onDelete" :comment="comment" />
     </li>
     <li v-if="comments.length <= 0">입력된 댓글이 없습니다.</li>
   </ul>
@@ -25,6 +25,7 @@ export default {
     CommentItem
   },
   methods: {
+    ...mapActions(["editComment", "deleteComment"]),
     onEdit({ id, comment }) {
       this.editComment({ commentId: id, comment })
         .then(response => {
@@ -39,7 +40,20 @@ export default {
           }
         });
     },
-    ...mapActions(["editComment"])
+    onDelete(commentId) {
+      this.deleteComment(commentId)
+        .then(response => {
+          alert("댓글이 삭제되었습니다.");
+        })
+        .catch(error => {
+          if (error.response.status === 401) {
+            alert("로그인이 필요합니다.");
+            this.$router.push({ name: "Signin" });
+          } else {
+            alert(error.response.data.msg);
+          }
+        });
+    }
   }
 };
 </script>
